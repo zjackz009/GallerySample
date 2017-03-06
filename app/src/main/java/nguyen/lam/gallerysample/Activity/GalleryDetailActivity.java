@@ -1,13 +1,15 @@
-package nguyen.lam.gallerysample;
+package nguyen.lam.gallerysample.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class GallerySampleActivity extends AppCompatActivity {
+import nguyen.lam.gallerysample.R;
+
+public class GalleryDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gallery_sample);
+        setContentView(R.layout.activity_gallery_detail);
     }
 }
