@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GallerySample</string>
+
+    <string name="title">Images</string>
+    <string name="tab_name_1">IMAGES0</string>
+    <string name="tab_name_2">IMAGES1</string>
+    <string name="tab_name_3">IMAGES2</string>
+</resources>
