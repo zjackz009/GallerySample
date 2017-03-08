@@ -5,7 +5,8 @@
               android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/lis_images"
+        android:id="@+id/list_images"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

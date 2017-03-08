@@ -1,14 +1,13 @@
 package nguyen.lam.gallerysample.Utilities;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
+
 import android.util.Log;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 
 
 /**
@@ -19,22 +18,23 @@ public class FileUtil {
 
     private static final String TAG = FileUtil.class.getSimpleName();
 
-    public static void listFiles(Context context, String dirFrom) {
-        Resources res = context.getResources(); //if you are in an activity
-        AssetManager am = res.getAssets();
-        List<String> fileList = new ArrayList();
+
+    public static String readFileFromAsset(Context context,String fileName){
+        StringBuilder buf =new StringBuilder();
         try {
-            fileList = Arrays.asList(am.list(dirFrom));
-        } catch (IOException e) {
+            InputStream json=context.getAssets().open(fileName);
+            BufferedReader in=
+                    new BufferedReader(new InputStreamReader(json, "UTF-8"));
+            String str;
+
+            while ((str=in.readLine()) != null) {
+                buf.append(str);
+            }
+            in.close();
+        }catch (Exception e){
             e.printStackTrace();
         }
-
-        if (null != fileList && fileList.size()>0)
-        {
-            for ( int i = 0;i<fileList.size();i++)
-            {
-                Log.e(TAG,fileList.get(i));
-            }
-        }
+        Log.e(TAG,buf.toString());
+        return buf.toString();
     }
 }
