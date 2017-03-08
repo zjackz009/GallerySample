@@ -14,12 +14,12 @@ import nguyen.lam.gallerysample.R;
 class GalleryHolder extends RecyclerView.ViewHolder {
 
     ImageView imageItem;
-//    TextView tvItem;
+    TextView tvItem;
 
     GalleryHolder(View itemView) {
         super(itemView);
 
         imageItem = (ImageView) itemView.findViewById(R.id.img_item);
-//        tvItem = (TextView) itemView.findViewById(R.id.tv_item);
+        tvItem = (TextView) itemView.findViewById(R.id.tv_item);
     }
 }

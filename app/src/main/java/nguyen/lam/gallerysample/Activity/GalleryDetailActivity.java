@@ -8,7 +8,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import nguyen.lam.gallerysample.R;
-import nguyen.lam.gallerysample.Services.ImageDownloadService;
+import nguyen.lam.gallerysample.Services.ImageLazyDownloadService;
 import nguyen.lam.gallerysample.Utilities.Constant;
 
 public class GalleryDetailActivity extends AppCompatActivity implements View.OnClickListener {
@@ -36,8 +36,8 @@ public class GalleryDetailActivity extends AppCompatActivity implements View.OnC
         btnBack.setOnClickListener(this);
 
         ImageView imageDetail = (ImageView) findViewById(R.id.img_detail);
-        ImageDownloadService imageDownloadService = new ImageDownloadService(this);
-        imageDownloadService.DisplayImage(url, imageDetail);
+        ImageLazyDownloadService imageLazyDownloadService = new ImageLazyDownloadService(this);
+        imageLazyDownloadService.DisplayImage(url, imageDetail,null);
     }
 
     @Override

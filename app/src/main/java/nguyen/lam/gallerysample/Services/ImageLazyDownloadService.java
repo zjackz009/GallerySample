@@ -1,7 +1,6 @@
 package nguyen.lam.gallerysample.Services;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -17,13 +16,13 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import android.util.Log;
 
+import nguyen.lam.gallerysample.Interfaces.ImageDownLoadProgressListener;
 import nguyen.lam.gallerysample.R;
 import nguyen.lam.gallerysample.Utilities.CommonUtil;
 
@@ -31,9 +30,9 @@ import nguyen.lam.gallerysample.Utilities.CommonUtil;
  * Copyright © 2016 TMA Solutions. All rights reserved
  */
 
-public class ImageDownloadService {
+public class ImageLazyDownloadService {
 
-    private static final String TAG = ImageDownloadService.class.getSimpleName();
+    private static final String TAG = ImageLazyDownloadService.class.getSimpleName();
 
     private static final int TIME_OUT = 30*1000;
 
@@ -43,13 +42,13 @@ public class ImageDownloadService {
     private ExecutorService executorService;
     private Handler handler =new Handler();//handler to display images in UI thread
 
-    public ImageDownloadService(Context context){
+    public ImageLazyDownloadService(Context context){
         fileCache=new ImageFileCache(context);
         executorService=Executors.newFixedThreadPool(5);
     }
 
     private final int stub_id= R.mipmap.ic_launcher;
-    public void DisplayImage(String url, ImageView imageView)
+    public void DisplayImage(String url, ImageView imageView,ImageDownLoadProgressListener listener)
     {
         imageViews.put(imageView, url);
         Bitmap bitmap=memoryCache.get(url);
@@ -57,23 +56,23 @@ public class ImageDownloadService {
             imageView.setImageBitmap(bitmap);
         else
         {
-            queuePhoto(url, imageView);
+            queuePhoto(url, imageView,listener);
             imageView.setImageResource(stub_id);
         }
     }
 
-    private void queuePhoto(String url, ImageView imageView)
+    private void queuePhoto(String url, ImageView imageView,ImageDownLoadProgressListener listener)
     {
-        PhotoToLoad p=new PhotoToLoad(url, imageView);
+        PhotoToLoad p=new PhotoToLoad(url, imageView,listener);
         executorService.submit(new PhotosLoader(p));
     }
 
-    private Bitmap getBitmap(String url)
+    private Bitmap getBitmap(String url, ImageDownLoadProgressListener listener)
     {
         File f=fileCache.getFile(url);
 
         //from SD cache
-        Bitmap b = decodeFile(f);
+        Bitmap b = CommonUtil.decodeFile(f);
         if(b!=null)
             return b;
 
@@ -90,7 +89,8 @@ public class ImageDownloadService {
             CommonUtil.CopyStream(is, os);
             os.close();
             conn.disconnect();
-            bitmap = decodeFile(f);
+            bitmap = CommonUtil.decodeFile(f);
+//            bitmap = (new ImageAsyncTaskDownloadService(listener,f).execute(url)).get();
             return bitmap;
         } catch (Throwable ex){
             ex.printStackTrace();
@@ -100,52 +100,18 @@ public class ImageDownloadService {
         }
     }
 
-    //decodes image and scales it to reduce memory consumption
-    private Bitmap decodeFile(File f){
-        try {
-            //decode image size
-            BitmapFactory.Options o = new BitmapFactory.Options();
-            o.inJustDecodeBounds = true;
-            FileInputStream stream1=new FileInputStream(f);
-            BitmapFactory.decodeStream(stream1,null,o);
-            stream1.close();
 
-            //Find the correct scale value. It should be the power of 2.
-            final int REQUIRED_SIZE=512;
-            int width_tmp=o.outWidth, height_tmp=o.outHeight;
-            int scale=1;
-            while(true){
-                if(width_tmp/2<REQUIRED_SIZE || height_tmp/2<REQUIRED_SIZE)
-                    break;
-                width_tmp/=2;
-                height_tmp/=2;
-                scale*=2;
-            }
-
-            //decode with inSampleSize
-            BitmapFactory.Options o2 = new BitmapFactory.Options();
-            o2.inSampleSize=scale;
-            FileInputStream stream2=new FileInputStream(f);
-            Bitmap bitmap=BitmapFactory.decodeStream(stream2, null, o2);
-            stream2.close();
-            return bitmap;
-        } catch (FileNotFoundException e) {
-            Log.e(TAG,e.getMessage());
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     //Task for the queue
     private class PhotoToLoad
     {
         public String url;
         public ImageView imageView;
-        public PhotoToLoad(String u, ImageView i){
+        public ImageDownLoadProgressListener progressListener;
+        public PhotoToLoad(String u, ImageView i, ImageDownLoadProgressListener listener){
             url=u;
             imageView=i;
+            progressListener = listener;
         }
     }
 
@@ -160,7 +126,7 @@ public class ImageDownloadService {
             try{
                 if(imageViewReused(photoToLoad))
                     return;
-                Bitmap bmp=getBitmap(photoToLoad.url);
+                Bitmap bmp=getBitmap(photoToLoad.url,photoToLoad.progressListener);
                 memoryCache.put(photoToLoad.url, bmp);
                 if(imageViewReused(photoToLoad))
                     return;
