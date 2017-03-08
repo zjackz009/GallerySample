@@ -8,16 +8,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import nguyen.lam.gallerysample.Activity.GallerySampleActivity;
 import nguyen.lam.gallerysample.Fragments.GallerySampleFragment;
 import nguyen.lam.gallerysample.Interfaces.GalleryListener;
-
-/**
- * Copyright © 2016 TMA Solutions. All rights reserved
- */
-
 public class GalleryPagerAdapter extends FragmentPagerAdapter {
 
-    int maxTab;
-    Context context;
-    GalleryListener galleryListener;
+    private int maxTab;
+    private Context context;
+    private GalleryListener galleryListener;
 
     public GalleryPagerAdapter(FragmentManager fm, int numTab, Context context, GalleryListener listener) {
         super(fm);

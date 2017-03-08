@@ -26,10 +26,6 @@ import nguyen.lam.gallerysample.Interfaces.ImageDownLoadProgressListener;
 import nguyen.lam.gallerysample.R;
 import nguyen.lam.gallerysample.Utilities.CommonUtil;
 
-/**
- * Copyright © 2016 TMA Solutions. All rights reserved
- */
-
 public class ImageLazyDownloadService {
 
     private static final String TAG = ImageLazyDownloadService.class.getSimpleName();

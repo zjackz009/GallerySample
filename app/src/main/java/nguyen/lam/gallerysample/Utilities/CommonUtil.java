@@ -19,11 +19,6 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import android.util.Log;
 
-
-/**
- * Copyright © 2016 TMA Solutions. All rights reserved
- */
-
 public class CommonUtil {
 
     private static final String TAG = CommonUtil.class.getSimpleName();

@@ -6,10 +6,6 @@ import java.io.File;
 
 import nguyen.lam.gallerysample.Utilities.CommonUtil;
 
-/**
- * Copyright © 2016 TMA Solutions. All rights reserved
- */
-
 class ImageFileCache {
     private File cacheDir;
 

@@ -1,9 +1,5 @@
 package nguyen.lam.gallerysample.Utilities;
 
-/**
- * Copyright © 2016 TMA Solutions. All rights reserved
- */
-
 public class Constant {
 
     public static final String JSON_FILE_IMAGES_0 = "images0.json";

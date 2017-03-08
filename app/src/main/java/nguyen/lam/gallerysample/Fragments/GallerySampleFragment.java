@@ -23,10 +23,6 @@ import nguyen.lam.gallerysample.Utilities.Constant;
 import nguyen.lam.gallerysample.Utilities.FileUtil;
 import nguyen.lam.gallerysample.Utilities.GridSpacingItemDecoration;
 
-/**
- * Copyright © 2016 TMA Solutions. All rights reserved
- */
-
 public class GallerySampleFragment extends Fragment {
 
     private ArrayList<String> listUrl = new ArrayList<>();

@@ -7,10 +7,6 @@ import android.widget.TextView;
 
 import nguyen.lam.gallerysample.R;
 
-/**
- * Copyright © 2016 TMA Solutions. All rights reserved
- */
-
 class GalleryHolder extends RecyclerView.ViewHolder {
 
     ImageView imageItem;

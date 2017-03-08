@@ -1,15 +1,10 @@
 package nguyen.lam.gallerysample.Services;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,10 +17,6 @@ import java.net.URLConnection;
 
 import nguyen.lam.gallerysample.Interfaces.ImageDownLoadProgressListener;
 import nguyen.lam.gallerysample.Utilities.CommonUtil;
-
-/**
- * Created by JackSilver on 3/8/2017.
- */
 
 public class ImageAsyncTaskDownloadService extends AsyncTask<String, String, Bitmap> {
 

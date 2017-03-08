@@ -8,10 +8,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import android.util.Log;
 
-/**
- * Copyright © 2016 TMA Solutions. All rights reserved
- */
-
  class ImageMemoryCache {
 
     private static final String TAG = ImageMemoryCache.class.getSimpleName();

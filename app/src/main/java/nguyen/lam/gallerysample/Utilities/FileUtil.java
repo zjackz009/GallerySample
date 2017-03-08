@@ -8,12 +8,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-
-
-/**
- * Created by JackSilver on 3/6/2017.
- */
-
 public class FileUtil {
 
     private static final String TAG = FileUtil.class.getSimpleName();
